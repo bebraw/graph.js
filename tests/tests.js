@@ -64,7 +64,6 @@ define(['bunit', 'assert', 'graph'], function(bunit, assert, graph) {
         },
         access: function(a, n1) {
             a.add(n1);
-            console.log('foo', a.nodes.get(0), n1);
             assert(a.nodes.get(0)).equals(n1);
         },
         getLink: function(a, n1, n2) {

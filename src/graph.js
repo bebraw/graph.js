@@ -1,4 +1,12 @@
-define(function() {
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(factory);
+    } else {
+        // Browser globals
+        root.graph = factory();
+    }
+}(this, function () {
     return function() {
         var set = function(eqCb) {
             eqCb = eqCb || function(a, b) {return a == b};
@@ -85,5 +93,5 @@ define(function() {
             }
         };
     };
-});
+}));
 
