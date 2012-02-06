@@ -19,9 +19,28 @@
     <script type="text/javascript">
         $(function() {
             var a = graph();
+            var n1 = node(10, 10);
+            var n2 = node(100, 50);
+            var n3 = node(200, 100);
 
-            // TODO: set up and render graph
-            console.log(a);
+            a.add(n1, n2, n3);
+            a.link(n1, n2);
+            a.link(n2, n3);
+
+            // TODO: rendering logic
+            a.nodes.each(function(n) {
+                n.render();
+            });
+
+            function node(x, y) {
+                return {
+                    x: x,
+                    y: y,
+                    render: function() {
+                        console.log('render at', x, y);
+                    }
+                }
+            }
         });
     </script>
 </head>

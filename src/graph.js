@@ -56,6 +56,16 @@
                         }
                     }
                 },
+                each: function(cb) {
+                    var i = 0;
+
+                    for(var j in this._obs) {
+                        var k = this._obs[j];
+
+                        cb(k, i);
+                        i++;
+                    }
+                },
                 length: function() {
                     return this._len;
                 }

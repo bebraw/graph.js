@@ -15,9 +15,22 @@ define(['bunit', 'assert', 'graph'], function(bunit, assert, graph) {
             this.add(a, n);
             this.add(a, n);
         },
+        addMultiple: function(a, n1, n2) {
+            a.add(n1, n2);
+            this._len(a, 'nodes', 2);
+        },
+        addSameWithMultiple: function(a, n1, n2) {
+            this.add(a, n1);
+            this.addMultiple(a, n1, n2);
+        },
         remove: function(a, n) {
             a.add(n);
             a.remove(n);
+            this.empty(a);
+        },
+        removeMultiple: function(a, n1, n2) {
+            this.addMultiple(a, n1, n2);
+            a.remove(n1, n2);
             this.empty(a);
         },
         removeOther: function(a, n) {
@@ -72,6 +85,19 @@ define(['bunit', 'assert', 'graph'], function(bunit, assert, graph) {
         },
         getInvalidLink: function(a, n1, n2) {
             assert(a.links.get(n1, n2)).not().isDefined();
+        },
+        each: function(a, n1, n2) {
+            var is = 0;
+            var ns = 0;
+
+            this.addMultiple(a, n1, n2);
+            a.nodes.each(function(n, i) {
+                ns++;
+                is++;
+            });
+
+            assert(is).equals(2);
+            assert(ns).equals(2);
         },
         _link: function(a, n1, n2) {
             a.add(n1);
