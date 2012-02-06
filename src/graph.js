@@ -14,20 +14,27 @@
             return {
                 _obs: {},
                 _len: 0,
-                add: function(a) {
-                    if(this.get(a)) {
-                        return;
+                add: function() {
+                    for(var i = 0, len = arguments.length; i < len; i++) {
+                        var v = arguments[i];
+
+                        if(this.get(v)) {
+                            continue;
+                        }
+
+                        this._obs[this._len] = v;
+                        this._len++;
                     }
-
-                    this._obs[this._len] = a;
-                    this._len++;
                 },
-                remove: function(a) {
-                    var b = this.get(a);
+                remove: function() {
+                    for(var i = 0, len = arguments.length; i < len; i++) {
+                        var v = arguments[i];
+                        var n = this.get(v);
 
-                    if(b) {
-                        delete b;
-                        this._len--;
+                        if(n) {
+                            delete n;
+                            this._len--;
+                        }
                     }
                 },
                 contains: function(a) {
@@ -40,7 +47,7 @@
                         }
                     }
                     else {
-                        for(var i = 0, len = this._len; i < len; i++) {
+                        for(var i in this._obs) {
                             var k = this._obs[i];
 
                             if(eqCb(a, k)) {
@@ -77,11 +84,11 @@
             nodes: set(),
             links: links,
             length: 0,
-            add: function(a) {
-                this.nodes.add(a);
+            add: function() {
+                this.nodes.add.apply(this.nodes, arguments);
             },
-            remove: function(a) {
-                this.nodes.remove(a);
+            remove: function() {
+                this.nodes.remove.apply(this.nodes, arguments);
             },
             link: function(from, to) {
                 if(from != to && this.nodes.contains(from) && this.nodes.contains(to)) {
