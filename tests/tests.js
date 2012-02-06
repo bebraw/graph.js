@@ -5,6 +5,7 @@ define(['bunit', 'assert', 'graph'], function(bunit, assert, graph) {
         },
         empty: function(a) {
             this._len(a, 'nodes', 0);
+            this._len(a, 'links', 0);
         },
         add: function(a, n) {
             a.add(n);
@@ -21,9 +22,14 @@ define(['bunit', 'assert', 'graph'], function(bunit, assert, graph) {
             a.link(n1, n2);
             this._len(a, 'links', 1);
         },
-        unlink: function(a) {
-            this.link(a);
-            a.unlink(a.nodes[0], a.nodes[1]);
+        linkItself: function(a, n) {
+            a.add(n);
+            a.link(n, n);
+            this._len(a, 'links', 0);
+        },
+        unlink: function(a, n1, n2) {
+            this.link(a, n1, n2);
+            a.unlink(n1, n2);
             this._len(a, 'links', 0);
         },
         access: function(a, n1) {

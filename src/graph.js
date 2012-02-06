@@ -11,7 +11,9 @@ define(function() {
                 this.nodes.pop();
             },
             link: function(from, to) {
-                this.links.push([from, to]);
+                if(from != to) {
+                    this.links.push([from, to]);
+                }
             },
             unlink: function(a) {
                 this.links.pop();
